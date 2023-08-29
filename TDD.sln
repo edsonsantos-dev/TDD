@@ -5,11 +5,13 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5CD277EF-3813-4C51-9BA4-E8FBEFF4EC15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD.Vendas.Domain.Tests", "tests\TDD.Vendas.Domain.Tests\TDD.Vendas.Domain.Tests.csproj", "{FE9D6D45-44BE-4D26-81F5-2ECBF6D48B28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDD.Vendas.Domain.Tests", "tests\TDD.Vendas.Domain.Tests\TDD.Vendas.Domain.Tests.csproj", "{FE9D6D45-44BE-4D26-81F5-2ECBF6D48B28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD.Vendas.Application.Tests", "tests\TDD.Vendas.Application.Tests\TDD.Vendas.Application.Tests.csproj", "{5DCE3F3D-FCD9-43B1-9857-882CDEC43721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDD.Vendas.Application.Tests", "tests\TDD.Vendas.Application.Tests\TDD.Vendas.Application.Tests.csproj", "{5DCE3F3D-FCD9-43B1-9857-882CDEC43721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD.Vendas.Domain", "src\TDD.Vendas.Domain\TDD.Vendas.Domain.csproj", "{F77208E3-7739-4010-8836-8F16B2D2942C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDD.Vendas.Domain", "src\TDD.Vendas.Domain\TDD.Vendas.Domain.csproj", "{F77208E3-7739-4010-8836-8F16B2D2942C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD.Core", "src\TDD.Core\TDD.Core.csproj", "{E5929381-65F3-41FE-81BC-1468F6CC9081}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{F77208E3-7739-4010-8836-8F16B2D2942C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F77208E3-7739-4010-8836-8F16B2D2942C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F77208E3-7739-4010-8836-8F16B2D2942C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5929381-65F3-41FE-81BC-1468F6CC9081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5929381-65F3-41FE-81BC-1468F6CC9081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5929381-65F3-41FE-81BC-1468F6CC9081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5929381-65F3-41FE-81BC-1468F6CC9081}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

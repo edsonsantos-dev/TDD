@@ -1,7 +1,12 @@
-﻿namespace TDD.Vendas.Domain;
+﻿using TDD.Core.DomainObjects;
+
+namespace TDD.Vendas.Domain;
 
 public class Pedido
 {
+    public static int MAX_UNIDADES_ITEM => 15;
+    public static int MIN_UNIDADES_ITEM => 1;
+
     public decimal ValorTotal { get; private set; }
     public PedidoStatus Status { get; private set; }
     public Guid ClienteId { get; private set; }
@@ -13,17 +18,17 @@ public class Pedido
     protected Pedido() { }
 
 
-    public void AtualizarValorTotal()
+    private void AtualizarValorTotal()
     {
         ValorTotal = PedidoItems.Sum(p => p.CalcularValor());
     }
 
     public void AdicionarItemPedido(PedidoItem pedidoItem)
     {
-        if (_pedidoItems.Any(p => p.Id == pedidoItem.Id))
-        {
-            var pedidoItemExistente = _pedidoItems.FirstOrDefault(p => p.Id == pedidoItem.Id);
+        var pedidoItemExistente = _pedidoItems.FirstOrDefault(p => p.Id == pedidoItem.Id);
 
+        if (pedidoItemExistente is not null)
+        {
             pedidoItemExistente.AdicionarQuantidade(pedidoItem.Quantidade);
 
             pedidoItem = pedidoItemExistente;
@@ -66,6 +71,12 @@ public class PedidoItem
 
     public PedidoItem(Guid id, string nomeProduto, int quantidade, decimal valorUnitario)
     {
+        if (quantidade > Pedido.MAX_UNIDADES_ITEM)
+            throw new DomainException($"O máximo de unidades permitida por produto é {Pedido.MAX_UNIDADES_ITEM}");
+
+        if (quantidade < Pedido.MIN_UNIDADES_ITEM)
+            throw new DomainException($"O pedido deve ter no mínimo {Pedido.MIN_UNIDADES_ITEM} produto");
+
         Id = id;
         NomeProduto = nomeProduto;
         Quantidade = quantidade;

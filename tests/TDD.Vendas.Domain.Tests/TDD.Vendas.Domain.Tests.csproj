@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\TDD.Core\TDD.Core.csproj" />
     <ProjectReference Include="..\..\src\TDD.Vendas.Domain\TDD.Vendas.Domain.csproj" />
   </ItemGroup>
 

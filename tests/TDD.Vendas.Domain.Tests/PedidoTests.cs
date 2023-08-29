@@ -1,4 +1,6 @@
-﻿namespace TDD.Vendas.Domain.Tests;
+﻿using TDD.Core.DomainObjects;
+
+namespace TDD.Vendas.Domain.Tests;
 
 public class PedidoTests
 {
