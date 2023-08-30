@@ -24,6 +24,14 @@ public class Pedido
         return pedidoItemExistente != null;
     }
 
+    private PedidoItem ValidarPedidoItemInexistente(PedidoItem pedidoItem)
+    {
+        if (!PedidoItemExistente(pedidoItem, out var pedidoItemExistente))
+            throw new DomainException("Item não existe no pedido");
+
+        return pedidoItemExistente;
+    }
+
     private void AtualizarValorTotal()
     {
         ValorTotal = PedidoItems.Sum(p => p.CalcularValor());
@@ -41,6 +49,28 @@ public class Pedido
         }
 
         _pedidoItems.Add(pedidoItem);
+        AtualizarValorTotal();
+    }
+
+    public void AtualizarItemPedido(PedidoItem pedidoItem)
+    {
+        var pedidoItemExistente = ValidarPedidoItemInexistente(pedidoItem);
+
+        pedidoItem.ValidarQuantidadePermitida(pedidoItem.Quantidade);
+
+        _pedidoItems.Remove(pedidoItemExistente);
+
+        _pedidoItems.Add(pedidoItem);
+
+        AtualizarValorTotal();
+    }
+
+    public void RemoverItemPedido(PedidoItem pedidoItem)
+    {
+        var pedidoItemExistente = ValidarPedidoItemInexistente(pedidoItem);
+
+        _pedidoItems.Remove(pedidoItemExistente);
+
         AtualizarValorTotal();
     }
 
@@ -83,7 +113,7 @@ public class PedidoItem
         ValorUnitario = valorUnitario;
     }
 
-    internal static void ValidarQuantidadePermitida(int quantidade)
+    internal void ValidarQuantidadePermitida(int quantidade)
     {
         if (quantidade > Pedido.MAX_UNIDADES_ITEM)
             throw new DomainException($"O máximo de unidades permitida por produto é {Pedido.MAX_UNIDADES_ITEM}");
