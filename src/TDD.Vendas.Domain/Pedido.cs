@@ -17,6 +17,12 @@ public class Pedido
 
     protected Pedido() { }
 
+    private bool PedidoItemExistente(PedidoItem pedidoItem, out PedidoItem pedidoItemExistente)
+    {
+        pedidoItemExistente = _pedidoItems.FirstOrDefault(p => p.Id == pedidoItem.Id);
+
+        return pedidoItemExistente != null;
+    }
 
     private void AtualizarValorTotal()
     {
@@ -25,9 +31,7 @@ public class Pedido
 
     public void AdicionarItemPedido(PedidoItem pedidoItem)
     {
-        var pedidoItemExistente = _pedidoItems.FirstOrDefault(p => p.Id == pedidoItem.Id);
-
-        if (pedidoItemExistente is not null)
+        if (PedidoItemExistente(pedidoItem, out var pedidoItemExistente))
         {
             pedidoItemExistente.AdicionarQuantidade(pedidoItem.Quantidade);
 
@@ -71,11 +75,7 @@ public class PedidoItem
 
     public PedidoItem(Guid id, string nomeProduto, int quantidade, decimal valorUnitario)
     {
-        if (quantidade > Pedido.MAX_UNIDADES_ITEM)
-            throw new DomainException($"O máximo de unidades permitida por produto é {Pedido.MAX_UNIDADES_ITEM}");
-
-        if (quantidade < Pedido.MIN_UNIDADES_ITEM)
-            throw new DomainException($"O pedido deve ter no mínimo {Pedido.MIN_UNIDADES_ITEM} produto");
+        ValidarQuantidadePermitida(quantidade);
 
         Id = id;
         NomeProduto = nomeProduto;
@@ -83,8 +83,16 @@ public class PedidoItem
         ValorUnitario = valorUnitario;
     }
 
+    internal static void ValidarQuantidadePermitida(int quantidade)
+    {
+        if (quantidade > Pedido.MAX_UNIDADES_ITEM)
+            throw new DomainException($"O máximo de unidades permitida por produto é {Pedido.MAX_UNIDADES_ITEM}");
 
-    internal void AdicionarQuantidade(int quantidade) => Quantidade += quantidade;
+        if (quantidade < Pedido.MIN_UNIDADES_ITEM)
+            throw new DomainException($"O pedido deve ter no mínimo {Pedido.MIN_UNIDADES_ITEM} produto");
+    }
+
+    internal void AdicionarQuantidade(int quantidade) => ValidarQuantidadePermitida(Quantidade += quantidade);
 
     internal decimal CalcularValor() => Quantidade * ValorUnitario;
 }
